@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- =========================
+     META
+    ============================== -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+
+	<meta name="keywords" content="donations, micro-donations, offer me a coffee, earning from your community">
+	<meta name="description" content="Justa.beer is a widget to get beers or something from your community. Its not advertising.">
+
+	<title>Justa.Beer | Ask your community to offer you something </title>
+	<link rel="icon" type="image/png" href="static/logo.png">
+
+	
+</head>
+
+
+	<div class="navbar">
+		<table>
+			<tr>
+				<!-- Logo -->
+				<td class="logo">
+					<a href="/">
+						<img src="static/logo.png">			
+					</a>
+				</td>
+				<td class="space-block"></td>
+
+				<!-- About 
+				<td class="button-simple-wrapper">
+					<a href="about.html">
+						<div class="button-simple"> About</div>
+					</a>
+				</td>-->
+
+
+				<!-- Invitation -->
+				<td class="button-wrapper">
+					<a href="http://eepurl.com/bM_RM9" target="_blank">
+						<div class="button signin">Request Invitation</div>
+					</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+<!-- Main Text -->
+<div class="landing">
+	<div class="hero-text typed" >
+		<!-- Type.js Dinamico -->
+			<!-- Array String -->	
+			<div id="typed-strings">
+			    <p>	
+				    <span class="icon beer"> </span>
+				    <span class="highlight">Beer.</span>
+			    </p>
+			    
+			    <p>	
+				    <span class="icon coffee"> </span>
+				    <span class="highlight">Coffee.</span>
+			    </p>
+
+			    <p>	
+				    <span class="icon pizza"> </span>
+				    <span class="highlight">Pizza.</span>
+			    </p>
+			</div>
+			<!-- Container -->
+			"Buy me a <span id="typed"></span>"
+		<!-- End Type.js -->
+	</div>
+	<div class="hero-subtitle">A smart widget to get micro-donations from your community.</div>
+	
+	<!-- example-->
+	<div class="example-fixed">
+		<div class="fadein">
+		  <img src="static/example-coffee.png">
+		  <img src="static/example-beer.png">
+		  <img src="static/example-tea.png">
+		</div>
+	</div>
+
+	<!-- Button Action -->
+	<div class="action-buttons">
+		<a  href="http://eepurl.com/bM_RM9" target="_blank">
+			<div class="signup-button">Request invitation</div>
+		</a>
+	</div>
+
+	<!-- Footer -->
+	<div class="footer">
+	Made with <span class="love">♥</span> in London. 
+	<p>© Justa.Beer 2016</p>
+	</div>
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="static/typed.css"> 
+<script src="static/typed.js"></script>
+<script>
+    $(function(){
+        $("#typed").typed({
+            stringsElement: $('#typed-strings'),
+            typeSpeed: 0,
+	        backDelay: 4000,
+	        loop: true,
+	        contentType: 'html'
+		});
+
+	    $('.fadein img:gt(0)').hide();
+	    setInterval(function(){
+		$('.fadein :first-child').fadeOut()
+		  .next('img').fadeIn()
+		  .end().appendTo('.fadein');}, 
+		5000);
+
+    });
+</script>
+
+</body>
+</html>
