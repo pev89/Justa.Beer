@@ -2,6 +2,8 @@ package util;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -19,8 +21,9 @@ public class TestsConfig {
     // system specific config
     public static final String OPERA_LAUNCHER_PATH = "<<< path to 'Opera/launcher.exe' file >>>";
     public static final String WIDGET_TEST_PAGE_URL = "<<< widget/widget.html >>>";
-    public static final String TEST_PAGE_URL = "<<< www/form-demo.html >>>";
+    public static final String WIDGET_DEMO_PAGE_URL = "<<< www/widget-demo.html >>>";
     public static final String LINK_GENERATION_PAGE_URL = "<<< path to 'www/link-generation.html' page >>>";
+    
     
     public static final void waitForElement(WebDriver driver, By element, int totalTime, int checkTimeDelta) {
         Wait<WebDriver> wait =
@@ -30,5 +33,12 @@ public class TestsConfig {
                 .ignoring(NoSuchElementException.class, StaleElementReferenceException.class);
         wait.until(
             ExpectedConditions.visibilityOfElementLocated(element));
+    }
+    
+    public static final Dimension getViewportSize(JavascriptExecutor jse) {
+        return new Dimension(
+            Integer.parseInt(jse.executeScript("return document.documentElement.clientWidth").toString()),
+            Integer.parseInt(jse.executeScript("return window.innerHeight").toString())
+        );
     }
 }

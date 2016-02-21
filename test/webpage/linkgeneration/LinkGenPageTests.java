@@ -1,26 +1,21 @@
 package webpage.linkgeneration;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import util.TestsBase;
 import util.TestsConfig;
 
 
-abstract public class LinkGenPageTests {
+abstract public class LinkGenPageTests extends TestsBase {
     
-    WebDriver driver = null;
-    Dimension viewportSize = null;
     WebElement containerEl = null;
     WebElement urlInput = null;
     WebElement codeField = null;
-    private JavascriptExecutor jse = null;
     
     
     @AfterTest
@@ -32,22 +27,12 @@ abstract public class LinkGenPageTests {
     @BeforeMethod
     public void DemoPageTests() {
         driver.get(TestsConfig.LINK_GENERATION_PAGE_URL);
-        driver.manage().window().setSize(new Dimension(1000, 600));
+        setBrowserSize(1000, 600);
+        viewportSize = TestsConfig.getViewportSize(jse);
         
         containerEl = driver.findElement(By.className("formBox"));
         urlInput = driver.findElement(By.id("userUrl"));
         codeField = driver.findElement(By.id("generatedCode"));
-        
-        jse = (JavascriptExecutor) driver;
-        updateViewportSize();
-    }
-    
-    
-    private void updateViewportSize() {
-        viewportSize = new Dimension(
-            Integer.parseInt(jse.executeScript("return document.documentElement.clientWidth").toString()),
-            Integer.parseInt(jse.executeScript("return window.innerHeight").toString())
-        );
     }
     
     
@@ -69,8 +54,8 @@ abstract public class LinkGenPageTests {
     
     @Test
     public void main_container_has_proper_size_on_small_screens() {
-        driver.manage().window().setSize(new Dimension(200, 600));
-        updateViewportSize();
+        setBrowserSize(200, 600);
+        viewportSize = TestsConfig.getViewportSize(jse);
         assertEquals(containerEl.getSize().width, viewportSize.width);
     }
     
