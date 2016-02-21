@@ -1,22 +1,12 @@
 package webpage.linkgeneration;
 
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -30,7 +20,6 @@ abstract public class LinkGenPageTests {
     WebElement containerEl = null;
     WebElement urlInput = null;
     WebElement codeField = null;
-    private final String DEMO_PAGE_URL = "file:///Z:/Projects/justa.beer/Justa.Beer/www/link-generation.html";
     private JavascriptExecutor jse = null;
     
     
@@ -42,7 +31,7 @@ abstract public class LinkGenPageTests {
     
     @BeforeMethod
     public void DemoPageTests() {
-        driver.get(DEMO_PAGE_URL);
+        driver.get(TestsConfig.LINK_GENERATION_PAGE_URL);
         driver.manage().window().setSize(new Dimension(1000, 600));
         
         containerEl = driver.findElement(By.className("formBox"));
