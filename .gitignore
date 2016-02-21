@@ -16,3 +16,4 @@ lib/
 .gradle/
 www/nbproject/
 widget/nbproject/
+www/static/widget.js
