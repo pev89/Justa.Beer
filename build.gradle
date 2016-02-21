@@ -92,6 +92,11 @@ task createWidgetJS(type: CreateWidgetJS) {
     outputs.upToDateWhen { false }
 }
 
+task build {
+    outputs.upToDateWhen { false }
+}
+
 combineAndMinifyJs.dependsOn copyLibs
 combineAndMinifyCSS.dependsOn copyLibs
 createWidgetJS.dependsOn combineAndMinifyCSS, combineAndMinifyJs
+build.dependsOn createWidgetJS
