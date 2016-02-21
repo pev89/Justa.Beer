@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>JustaBeer - link generation</title>
+        <script src="static/jquery.min.js"></script>
+        <script src="static/plugins/caret.js"></script>
+        <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.min.css" />
+        
+        <style>
+            div.formBox {
+                width: 80%;
+                margin: 40px auto 0 auto;
+                text-align: center;
+            }
+            
+            div.formBox > fieldset > * {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            div.formBox > fieldset.userUrl > label {
+                font-size: 25px;
+                margin-bottom: 20px;
+                font-weight: normal;
+            }
+            
+            div.formBox > fieldset.userUrl > input {
+                text-align: center;
+                padding: 4px;
+                font-size: 20px;
+                margin-bottom: 5px;
+                height: 50px;
+            }
+            
+            div.formBox > fieldset.widgetCode {
+                margin-top: 50px;
+            }
+            
+            div.formBox > fieldset.widgetCode > input {
+            }
+            
+            @media (max-width: 500px) {
+                div.formBox {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="formBox">
+            <fieldset class="form-group userUrl">
+                <label for="userUrl">Insert your URL</label>
+                <input type="text" class="form-control" id="userUrl" placeholder="URL" />
+            </fieldset>
+            <fieldset class="form-group widgetCode">
+                <label for="generatedCode">Insert this code into your web page</label>
+                <input type="text" class="form-control" id="generatedCode" placeholder="Provide URL" />
+            </fieldset>
+        </div>
+        <script language="javascript" src="static/link-generation.js"></script>
+    </body>
+</html>
