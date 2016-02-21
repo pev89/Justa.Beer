@@ -3,7 +3,9 @@ $.ajax({
     jsonp: "callback",
     dataType: "jsonp",
     data: {
-        format: "json"
+        z: Date.now(),
+        url: document.URL,
+        domain: window.location.host
     },
     success: function( response ) {
         addJabWidget(response);
