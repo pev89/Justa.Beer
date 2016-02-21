@@ -1,0 +1,97 @@
+class CombineAndMinify extends DefaultTask {
+
+    @InputFiles
+    def files
+    
+    @OutputFile
+    def target
+    
+    def combine() {
+        target.withWriter { writer ->
+            files.each { file ->
+                file.withReader { reader ->
+                    writer << reader << '\n'
+                }
+            }
+        }
+    }
+    def minify() {
+        project.exec {
+            executable "java"
+            args '-jar', './lib/yuicompressor-2.3.6.jar', target, '-o', target
+        }
+    }
+    
+    @TaskAction
+    def main() {
+        combine()
+        minify()
+    }
+}
+
+
+class CreateWidgetJS extends DefaultTask {
+
+    @InputFile
+    def minifiedJS
+    
+    @InputFile
+    def minifiedCSS
+    
+    @OutputFile
+    def target
+    
+    
+    @TaskAction
+    def main() {
+        def minifiedCssContent = minifiedCSS.text.replace('"', '\\"')
+        target.withWriter { writer ->
+            writer << minifiedJS.text.replace('<<<INSERT_SYLES_HERE>>>', minifiedCssContent)
+        }
+        minifiedJS.delete()
+        minifiedCSS.delete()
+    }
+}
+
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.yahoo.platform.yui:yuicompressor:2.3.6'
+}
+
+// get YUI Compressor
+task copyLibs(type: Copy) {
+    from configurations.compile
+    into 'lib'
+}
+
+task combineAndMinifyJs(type: CombineAndMinify) {
+    files files('widget/js/getWidget.js', 'widget/js/addWidgetHtml.js')
+    target file('widget/js/min.js')
+    
+    outputs.upToDateWhen { false }
+}
+
+task combineAndMinifyCSS(type: CombineAndMinify) {
+    files files('widget/css/ui-widget.css', 'widget/css/ui-widget.css')
+    target file('widget/css/min.css')
+    
+    outputs.upToDateWhen { false }
+}
+
+task createWidgetJS(type: CreateWidgetJS) {
+    minifiedJS   file('widget/js/min.js')
+    minifiedCSS  file('widget/css/min.css')
+    target       file('www/static/widget.js')
+    
+    outputs.upToDateWhen { false }
+}
+
+combineAndMinifyJs.dependsOn copyLibs
+combineAndMinifyCSS.dependsOn copyLibs
+createWidgetJS.dependsOn combineAndMinifyCSS, combineAndMinifyJs
