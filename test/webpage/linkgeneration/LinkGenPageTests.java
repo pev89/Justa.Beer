@@ -31,7 +31,7 @@ abstract public class LinkGenPageTests extends TestsBase {
         viewportSize = TestsConfig.getViewportSize(jse);
         
         containerEl = driver.findElement(By.className("formBox"));
-        urlInput = driver.findElement(By.id("userUrl"));
+        urlInput = driver.findElement(By.id("paypalEmail"));
         codeField = driver.findElement(By.id("generatedCode"));
     }
     
@@ -114,7 +114,7 @@ abstract public class LinkGenPageTests extends TestsBase {
     }
     
     
-    private String getExpectedCode(String url) {
-        return "<script>document.write(\"<script type='text/javascript' src='js/widget.js?z=\" + Date.now() + \"&url=" + url + "'><\\/script>\");</script>";
+    private String getExpectedCode(String email) {
+        return "<script>document.write(\"<script type='text/javascript' src='js/widget.js?z=\" + Date.now() + \"&receiver_paypal_email=" + email + "'><\\/script>\");</script>";
     }
 }
