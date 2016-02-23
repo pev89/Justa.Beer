@@ -8,21 +8,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-
-
-
 </head>
 <body>
 	
-
+<!-- widget -->
 <div id="jsb-widget">
 
 	<style type="text/css">
-
 		/*  ============
 			Iframe CSS
 			============
-			These styles should be creating inside the widget div for reset all the potential issue with other styles
+			These styles should be created inside the widget's div (id="jsb-widget") for reset all the potential issue with other styles
 		*/
 
 		.jsb-reset-widget {
@@ -77,6 +73,17 @@
 		 	overflow:hidden !important;
 		 	z-index: 1000000 !important;
 		 }
+		 .jsb-close{
+		 	position: absolute;
+		 	top: 0;
+		 	right: 0;
+		 	padding: 5px 10px;
+		 	font-size: 12px;
+		 	background-color: rgba(0,0,0,0.5)
+		 	color: #fff;
+		 	font-weight: 500;
+		 	border-radius: 15px;
+		 }
 
 		@media (max-width:768px){
 			.jsb-widget-iframe{
@@ -85,16 +92,15 @@
 				left: 0 !important;
 			}
 		}
-
 	</style>
 	
 
+	<!-- Iframe -->
+	<iframe src="test-iframe.html" class="jsb-reset-widget jsb-widget-iframe" scrolling="no">	<div class="jsb-close">close</div></iframe>
+	<!-- / end iframe -->
+
 </div>
-
-<!-- Widget -->
-<iframe src="test-iframe.html" class="jsb-reset-widget jsb-widget-iframe" scrolling="no"></iframe>
-<!-- / end widget-->
-
+<!-- / end widget -->
 
 
 
@@ -105,12 +111,13 @@
 
 
 
-
 <!-- JS -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="js/iframeResizer.min.js"></script>
 <script type="text/javascript">
 	iFrameResize({log:true});
 </script>
+
+
 </body>
 </html>
