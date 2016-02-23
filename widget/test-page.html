@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>iFrame message passing test</title>
+	<meta name="description" content="iFrame message passing test">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+</head>
+<body>
+	
+<!-- widget -->
+<div id="jsb-widget">
+
+	<style type="text/css">
+		/*  ============
+			Iframe CSS
+			============
+			These styles should be created inside the widget's div (id="jsb-widget") for reset all the potential issue with other styles
+		*/
+
+		.jsb-reset-widget {
+		    animation : none !important;
+		    background : 0 !important;
+		    background-attachment : scroll !important;
+		    background-clip : border-box !important;
+		    background-color : transparent !important;
+		    background-image : none !important;
+		    background-origin : padding-box !important;
+		    border : 0 !important;
+		    border-spacing : 0 !important;
+		    bottom : auto !important;
+		    box-shadow : none !important;
+		    box-sizing : content-box !important;
+		    caption-side : top !important;
+		    clear : none !important;
+		    clip : auto !important;
+		    content : normal !important;
+		    counter-increment : none !important;
+		    counter-reset : none !important;
+		    cursor : auto !important;
+		    direction : ltr !important;
+		    display : inline !important;
+		    empty-cells : show !important;
+		    float : none !important;
+		    hyphens : none !important;
+		    left : auto !important;
+		    margin : 0 !important;
+		    opacity : 1 !important;
+		    orphans : 0 !important;
+		    outline : 0 !important;
+		    overflow : visible !important;
+		    padding : 0 !important;
+		    perspective : none !important;
+		    position : static !important;
+		    right : auto !important;
+		    top : auto !important;
+		    transform : none !important;
+		    unicode-bidi : normal !important;
+		    vertical-align : baseline !important;
+		    visibility : visible !important;
+		    widows : 0 !important;
+		    z-index : auto!important;
+		}
+
+		 .jsb-widget-iframe{
+		 	position:fixed !important;
+		 	bottom:0px !important;
+		 	right:0px !important;
+			padding: 10px !important;
+		 	overflow:hidden !important;
+		 	z-index: 1000000 !important;
+		 }
+
+		@media (max-width:768px){
+			.jsb-widget-iframe{
+				padding: 0 !important;
+				width: 100% !important;
+				left: 0 !important;
+			}
+		}
+	</style>
+	
+	<!-- Ifram -->
+	<iframe src="test-iframe.html" class="jsb-reset-widget jsb-widget-iframe" scrolling="no"></iframe>
+	<!-- / end iframe -->
+
+</div>
+<!-- / end widget -->
+
+
+
+
+<!-- BODY -->
+
+<!-- / end body -->
+
+
+
+<!-- JS -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/iframeResizer.min.js"></script>
+<script type="text/javascript">
+	iFrameResize({log:true});
+</script>
+
+
+</body>
+</html>

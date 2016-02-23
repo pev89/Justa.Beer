@@ -6,8 +6,17 @@
 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/ui-widget.css">
+
+
+	<style type="text/css">
+	body, p{
+		font-size: 15px!important;
+		font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+		padding: 300px!important
+
+		}</style>
+
+			<link rel="stylesheet" type="text/css" href="css/ui-widget.css">
 </head>
 <body>
 	
@@ -22,12 +31,28 @@
  	
  	-->
 
+	<!-- 
+	
+	These class are for customize the widget
+	Add the following class to change the default
+	
+	=================
+	Position:
+	> jsb-widget-left = Fixed bottom left
 
-	<div class="jsb-widget widget-default widget-fixed widget-right"> <!-- widget-right= Right side / widget-left= Left side /  -->
-		<div class="icon-container">
-			<div class="icon-img rocket"></div>
+	=================
+	Size:
+	> jsb-widget-large = Large widget
+
+
+
+	-->
+	<div class="reset-this jsb-widget jsb-widget-default jsb-widget-fixed jsb-widget-large"> 
+
+		<div class="jsb-icon-container">
+			<div class="jsb-icon-img"></div>
 		</div>
-		<div class="text-container">
+		<div class="jsb-text-container">
 
 			<!-- Sentence -->
 			<p>
@@ -35,7 +60,7 @@
 			</p>
 
 			<!-- CTA Button -->
-			<button type="button" class="btn btn-primary btn-sm">Launch it!</button>
+			<button type="button" class="btn btn-primary btn-sm btn-raised">Launch it!</button>
 		</div>
 	</div>
 
