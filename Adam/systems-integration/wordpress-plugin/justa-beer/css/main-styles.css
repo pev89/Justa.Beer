@@ -1,0 +1,28 @@
+div.jb-widget-box {
+    background-color: transparent;
+    padding: 5px 5px 10px 10px;
+    float: left;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+div.jb-widget-box > img {
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+} 
+
+div.jb-widget-selected {
+    background-color: #cddc39;
+    border-color: #cddc39;
+}
+
+div.jb-widget-box > img:hover,
+div.jb-widget-selected > img {
+    opacity: 1;
+    filter: alpha(opacity=100);
+} 
+
+div.error-msg {
+    color: #ff5722;
+}
