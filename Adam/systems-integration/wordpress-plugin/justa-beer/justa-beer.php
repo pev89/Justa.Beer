@@ -14,6 +14,8 @@ class JustaBeerPlugin {
     const JB_POST_TYPE = self::JB_PLUGIN_ID;
     const POPUP_PLUGIN_VERSION = '1.0';
     const SELECTED_WIDGET_VARIABLE = 'selected-vidget';
+    const DEFAULT_POST_NAME = 'Your widget';
+    const CODE_INPUT_FIELD_NAME = 'jb_widget_code';
     
     
     public function registerPostType() {
@@ -72,26 +74,11 @@ class JustaBeerPlugin {
     }
     
     
-    private function printWidgetPreview($name, $selectedName) {
-        $class = 'jb-widget-box';
-        if ($name === $selectedName) {
-            $class .= ' jb-widget-selected';
-        }
-        echo "<div class='$class' name='$name'>";
-        include __DIR__ . '/widget-preview/widget-1.html';
-        echo "</div>";
-    }
-    
-    
-    public function printWidgetsSelectBox() {
-        $selectedName = get_option(self::SELECTED_WIDGET_VARIABLE . get_the_ID(), null);
-        $this->printWidgetPreview('w1', $selectedName);
-        $this->printWidgetPreview('w2', $selectedName);
-        $this->printWidgetPreview('w3', $selectedName);
-        $this->printWidgetPreview('w4', $selectedName);
-        echo "<input type='hidden' name='jb_selected_widget_box_name' value='$selectedName' />" .
-             "<div style='clear:both'></div>" .
-             "<script>JustaBeer.initWidgetImgs();</script>";
+    public function printWidgetCodeInputBox() {
+        $userWidgetCode = get_option(self::SELECTED_WIDGET_VARIABLE . get_the_ID(), null);
+        echo "<div class='js-code-field-label'>Code provided by Justa.Beer: </div>" .
+             "<input class='js-code-input-field' type='text' name='" . self::CODE_INPUT_FIELD_NAME . "' style='width:100%' value='$userWidgetCode' />" .
+             "<div class='js-get-code-text'>Still don't have it? Go <a href='#'>here</a> and get one!</div>";
     }
     
     
@@ -150,8 +137,8 @@ class JustaBeerPlugin {
     
     
     private function addRequiredBoxes() {
-        $title = __("Select widget style", self::JB_PLUGIN_ID);
-        $contentFun = array($this, 'printWidgetsSelectBox');
+        $title = __("Your widget", self::JB_PLUGIN_ID);
+        $contentFun = array($this, 'printWidgetCodeInputBox');
         add_meta_box('wpp_theme_meta_box', $title, $contentFun, self::JB_POST_TYPE, 'normal');
         add_meta_box(
             'jb_custom_publish_meta_box',
@@ -178,10 +165,17 @@ class JustaBeerPlugin {
     }
     
     
+    public function onPostInsert($data, $postarr) {
+        $postarr['post_title'] = self::DEFAULT_POST_NAME;
+        $data['post_title'] = self::DEFAULT_POST_NAME;
+        return $data;
+    }
+    
+    
     public function onPostSave($postId, $post) {
         update_option(
             self::SELECTED_WIDGET_VARIABLE . $postId,
-            filter_input(INPUT_POST, 'jb_selected_widget_box_name')
+            stripslashes(filter_input(INPUT_POST, self::CODE_INPUT_FIELD_NAME))
         );
     }
     
@@ -194,22 +188,14 @@ class JustaBeerPlugin {
     
     
     public function initWidgetOnPage() {
-        wp_enqueue_script(
-            'widget-js',
-            plugins_url('js/widget.js', __FILE__),
-            array(),
-            self::POPUP_PLUGIN_VERSION);
+        $widgetId = $this->getFirstExistingPostId();
+        $widgetCode = htmlspecialchars_decode(get_option(self::SELECTED_WIDGET_VARIABLE . $widgetId, ''));
+        echo "<script language='javascript'>$widgetCode</script>";
     }
     
     
     private function showRealWidget() {
-        $widgetId = $this->getFirstExistingPostId();
-        $widgetName = get_option(self::SELECTED_WIDGET_VARIABLE . $widgetId, '');
-        if (!empty($widgetName)) {
-            $scriptUrl = plugins_url('js/widget.js', __FILE__);
-            wp_enqueue_script('jquery');
-            add_action('wp_footer', array($this, 'initWidgetOnPage'), 11);
-        }
+        add_action('wp_footer', array($this, 'initWidgetOnPage'), 11);
     }
     
     public function setCustomPostMessages() {
@@ -232,13 +218,12 @@ class JustaBeerPlugin {
     }
 }
 
-
-
 $plugin = new JustaBeerPlugin();
 add_action('init', array($plugin, 'registerPostType'));
 add_action('admin_enqueue_scripts', array($plugin, 'enqueueStylesAndScripts'));
 add_action('wp_enqueue_scripts', array($plugin, 'enqueueStylesAndScripts'));
 add_action('add_meta_boxes', array($plugin, 'prepareMetaBoxes'));
 add_action('save_post', array($plugin, 'onPostSave'), 10, 2);
+add_filter('wp_insert_post_data', array($plugin, 'onPostInsert'), 12, 2);
 add_action('wp_loaded', array($plugin, 'onPageInit'), 11);
 add_filter('post_updated_messages', array($plugin, 'setCustomPostMessages'));

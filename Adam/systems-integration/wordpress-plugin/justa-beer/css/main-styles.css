@@ -26,3 +26,32 @@ div.jb-widget-selected > img {
 div.error-msg {
     color: #ff5722;
 }
+
+input.js-code-input-field {
+    width: 100%;
+    padding: 9px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input.js-code-input-field-error {
+    border-color: #f00;
+}
+
+div.js-code-field-label {
+    margin: 10px 0 2px 3px;
+    font-size: 10px;
+}
+
+
+div.js-get-code-text {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 17px;
+}
+
+div.js-get-code-text > a {
+    color: #1976D2;
+    text-decoration: underline;
+    font-size: 20px;
+}
